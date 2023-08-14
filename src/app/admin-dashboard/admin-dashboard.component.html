@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 
@@ -171,6 +172,6 @@
 
 <div *ngIf="error || error === 'undefined'">
   <div class="flex justify-center items-center h-screen">
-  <p class="border-double border-4 border-sky-500 p-8">You are unAuthorize </p>
+  <p class="border-double border-4 border-sky-500 p-8">You are unAuthorize <a class="text-red-900 underline " routerLink="/~admin~">login Again</a> </p>
 </div>
 </div>

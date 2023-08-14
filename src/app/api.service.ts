@@ -22,6 +22,13 @@ export default class ApiService {
     return this.http.post(`${environment.baseUrl}/auth/~login~`,data)
   }
 
+  getAllCollection(){
+    return this.http.get(`${environment.baseUrl}/collection/getCollections`)
+  }
+
+
+
+
   getSingleUser(email:string){
    const  token = localStorage.getItem('Access_token')
    const headers = new HttpHeaders({
