@@ -16,9 +16,6 @@ collectionForm : any
 
 //Array
 images:any[] = []
-
-serverUrl :string = 'http://localhost:3000/'
-
 collectionName:string | undefined
 collectionImage :string | undefined
 
@@ -39,6 +36,10 @@ ngOnInit(){
   this.getAllImage()
 }
 
+checkHeaders(){
+
+}
+
 
 onFileSelected(event:any){
    this.selectedFile = event.target.files[0]
@@ -48,9 +49,10 @@ getAllImage(){
   this.api.getAllCollection().subscribe((response:any)=>{
     this.images=[]
     response['data'].map((x:any)=>{
-      this.images.push(x.collectionImage)
+      this.images.push(`http://localhost:3000/${x.collectionImage}`)
     })
     console.log(this.images)
+
   })
 }
 

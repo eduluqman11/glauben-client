@@ -23,7 +23,11 @@ export default class ApiService {
   }
 
   getAllCollection(){
-    return this.http.get(`${environment.baseUrl}/collection/getCollections`)
+    const  token = localStorage.getItem('Access_token')
+    const headers = new HttpHeaders({
+       'Authorization' : `Bearer ${token}`
+    })
+    return this.http.get(`${environment.baseUrl}/collection/getCollections`,{headers})
   }
 
 
@@ -34,8 +38,7 @@ export default class ApiService {
    const headers = new HttpHeaders({
       'Authorization' : `Bearer ${token}`
    })
-
-    return this.http.get(`${environment.baseUrl}/user/~getOneUser~/${email}`,{ headers })
+   return this.http.get(`${environment.baseUrl}/user/~getOneUser~/${email}`,{ headers })
   }
 
 }
