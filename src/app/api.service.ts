@@ -7,7 +7,7 @@ import { environment } from '../environments/environment';
 export default class ApiService {
 
   constructor(private http:HttpClient) { }
-
+    token = localStorage.getItem('Access_token')
   
   
   getCategory() {
@@ -23,22 +23,27 @@ export default class ApiService {
   }
 
   getAllCollection(){
-    const  token = localStorage.getItem('Access_token')
+  
     const headers = new HttpHeaders({
-       'Authorization' : `Bearer ${token}`
+       'Authorization' : `Bearer ${this.token}`
     })
     return this.http.get(`${environment.baseUrl}/collection/getCollections`,{headers})
   }
 
-
-
+  deleteImage(id:number,imageName:string){
+    const headers = new HttpHeaders({
+      'Authorization' : `Bearer ${this.token}`
+   })
+    return this.http.delete(`${environment.baseUrl}/collection/remove?imageName=${imageName}&id=${id}`,{headers})
+  }
 
   getSingleUser(email:string){
-   const  token = localStorage.getItem('Access_token')
-   const headers = new HttpHeaders({
-      'Authorization' : `Bearer ${token}`
+    const headers = new HttpHeaders({
+      'Authorization' : `Bearer ${this.token}`
    })
    return this.http.get(`${environment.baseUrl}/user/~getOneUser~/${email}`,{ headers })
   }
+
+
 
 }

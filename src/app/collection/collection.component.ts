@@ -15,7 +15,9 @@ export class CollectionComponent {
 collectionForm : any
 
 //Array
-images:any[] = []
+collectionData:any[] = []
+
+//string
 collectionName:string | undefined
 collectionImage :string | undefined
 
@@ -30,7 +32,7 @@ constructor(
 
 ngOnInit(){
   this.collectionForm =  this.fb.group({
-      collectionName : this.fb.control('',[Validators.required,Validators.minLength(2)]),
+      collectionName : this.fb.control('',[Validators.required,Validators.minLength(3)]),
       collectionUpload : this.fb.control('',[Validators.required])
   })
   this.getAllImage()
@@ -47,15 +49,13 @@ onFileSelected(event:any){
 
 getAllImage(){
   this.api.getAllCollection().subscribe((response:any)=>{
-    this.images=[]
     response['data'].map((x:any)=>{
-      this.images.push(`http://localhost:3000/${x.collectionImage}`)
+      return x.collectionImage=`http://localhost:3000/${x.collectionImage}`
     })
-    console.log(this.images)
-
+    this.collectionData=response['data']
+    console.log(this.collectionData)
   })
 }
-
 
 onCollectionForm(){
   const formData = new FormData();
@@ -66,12 +66,20 @@ onCollectionForm(){
     (response:any)=>{
       console.log(response)
       this.collectionImage = response['image']
-      
+      this.getAllImage()
     },
     (error)=>{
       console.log(error)
     }
   )
   this.ngOnInit()
+}
+
+
+deleteImage(id:number,imageName:string){
+ this.api.deleteImage(id,imageName).subscribe((response)=>{
+  console.log(response)
+  this.getAllImage()
+ })
 }
 }
